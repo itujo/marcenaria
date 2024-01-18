@@ -1,16 +1,15 @@
-import { TemplatedApp } from "uWebSockets.js";
-import { ListarTiposGeometriaController } from "../controllers/ListarTiposGeometriaController";
-import { CalcularOrcamentoController } from "../controllers/CalcularOrcamentoController";
+import { TemplatedApp } from 'uWebSockets.js';
+import {
+  createCalcularOrcamentoController,
+  createListarTiposGeometriaController,
+} from '../factories';
 
 export function setupRoutes(app: TemplatedApp) {
-	const listarTiposGeometriaController = new ListarTiposGeometriaController();
-	const calcularOrcamentoController = new CalcularOrcamentoController();
+  app.get('/geometrias', (res, _req) => {
+    createListarTiposGeometriaController().handle(res);
+  });
 
-	app.get("/geometrias", (res, _req) => {
-		listarTiposGeometriaController.handle(res);
-	});
-
-	app.post("/orcamento", (res, req) => {
-		calcularOrcamentoController.handle(res, req);
-	});
+  app.post('/orcamento', (res, req) => {
+    createCalcularOrcamentoController().handle(res, req);
+  });
 }

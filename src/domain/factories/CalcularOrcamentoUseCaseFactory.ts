@@ -1,10 +1,10 @@
-import { CalcularOrcamentoUseCase } from "../../application/use-cases";
-import { createMaterialRepository } from "../../infra/factories";
-import { GeometriaFactory } from "./GeometriaFactory";
+import { CalcularOrcamentoUseCase } from '../../application/use-cases';
+import { createMaterialRepository } from '../../infra/factories';
+import { createGeometriaFactory } from './GeometriaFactory';
 
-export function createCalcularOrcamentoUseCaseFactory() {
-	return new CalcularOrcamentoUseCase(
-		createMaterialRepository(),
-		new GeometriaFactory(),
-	);
+export function createCalcularOrcamentoUseCase() {
+  return new CalcularOrcamentoUseCase(
+    createMaterialRepository(),
+    createGeometriaFactory()
+  );
 }

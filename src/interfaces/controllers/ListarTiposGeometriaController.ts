@@ -1,11 +1,13 @@
-import { HttpResponse } from "uWebSockets.js";
-import { createListarTiposGeometriaUseCase } from "../../domain/factories";
+import { HttpResponse } from 'uWebSockets.js';
+import { ListarTiposGeometriaUseCase } from '../../application/use-cases';
 
 export class ListarTiposGeometriaController {
-	handle(res: HttpResponse): void {
-		const listarTiposGeometriaUseCase = createListarTiposGeometriaUseCase();
-		const tiposGeometria = listarTiposGeometriaUseCase.execute();
-		res.writeHeader("Content-Type", "application/json");
-		res.end(JSON.stringify(tiposGeometria));
-	}
+  constructor(
+    private readonly listarTiposGeometriaUseCase: ListarTiposGeometriaUseCase
+  ) {}
+  handle(res: HttpResponse): void {
+    const tiposGeometria = this.listarTiposGeometriaUseCase.execute();
+    res.writeHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(tiposGeometria));
+  }
 }
