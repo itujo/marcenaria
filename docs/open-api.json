@@ -1,0 +1,246 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Orçamento de Marcenaria",
+    "description": "Uma API para calcular orçamentos de móveis planejados.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de Desenvolvimento"
+    }
+  ],
+  "paths": {
+    "/orcamento": {
+      "post": {
+        "summary": "Calcula o orçamento de um móvel",
+        "description": "Recebe detalhes sobre um móvel e retorna o orçamento calculado.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrcamentoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Orçamento calculado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrcamentoResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "OrcamentoRequest": {
+        "type": "object",
+        "properties": {
+          "movel": {
+            "type": "string",
+            "example": "Cadeira"
+          },
+          "material": {
+            "type": "string",
+            "example": "Carvalho"
+          },
+          "geometrias": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Cilindro"
+                },
+                {
+                  "$ref": "#/components/schemas/Cubo"
+                },
+                {
+                  "$ref": "#/components/schemas/Esfera"
+                },
+                {
+                  "$ref": "#/components/schemas/Paralelepipedo"
+                },
+                {
+                  "$ref": "#/components/schemas/Piramide"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "movel",
+          "material",
+          "geometrias"
+        ]
+      },
+      "Cilindro": {
+        "type": "object",
+        "properties": {
+          "estrutura": {
+            "type": "string",
+            "example": "perna dianteira esquerda"
+          },
+          "geometria": {
+            "type": "string",
+            "example": "cilindro"
+          },
+          "raio_base": {
+            "type": "string",
+            "example": "1.5cm"
+          },
+          "altura": {
+            "type": "string",
+            "example": "40cm"
+          }
+        },
+        "required": [
+          "estrutura",
+          "geometria",
+          "raio_base",
+          "altura"
+        ]
+      },
+      "Cubo": {
+        "type": "object",
+        "properties": {
+          "estrutura": {
+            "type": "string",
+            "example": "base"
+          },
+          "geometria": {
+            "type": "string",
+            "example": "cubo"
+          },
+          "lado": {
+            "type": "string",
+            "example": "30cm"
+          }
+        },
+        "required": [
+          "estrutura",
+          "geometria",
+          "lado"
+        ]
+      },
+      "Esfera": {
+        "type": "object",
+        "properties": {
+          "estrutura": {
+            "type": "string",
+            "example": "puxador"
+          },
+          "geometria": {
+            "type": "string",
+            "example": "esfera"
+          },
+          "raio": {
+            "type": "string",
+            "example": "5cm"
+          }
+        },
+        "required": [
+          "estrutura",
+          "geometria",
+          "raio"
+        ]
+      },
+      "Paralelepipedo": {
+        "type": "object",
+        "properties": {
+          "estrutura": {
+            "type": "string",
+            "example": "tampo"
+          },
+          "geometria": {
+            "type": "string",
+            "example": "paralelepipedo"
+          },
+          "comprimento": {
+            "type": "string",
+            "example": "100cm"
+          },
+          "largura": {
+            "type": "string",
+            "example": "50cm"
+          },
+          "altura": {
+            "type": "string",
+            "example": "3cm"
+          }
+        },
+        "required": [
+          "estrutura",
+          "geometria",
+          "comprimento",
+          "largura",
+          "altura"
+        ]
+      },
+      "Piramide": {
+        "type": "object",
+        "properties": {
+          "estrutura": {
+            "type": "string",
+            "example": "suporte"
+          },
+          "geometria": {
+            "type": "string",
+            "example": "piramide"
+          },
+          "base": {
+            "type": "string",
+            "example": "20cm"
+          },
+          "altura": {
+            "type": "string",
+            "example": "30cm"
+          }
+        },
+        "required": [
+          "estrutura",
+          "geometria",
+          "base",
+          "altura"
+        ]
+      },
+      "OrcamentoResponse": {
+        "type": "object",
+        "properties": {
+          "precoTotal": {
+            "type": "number",
+            "example": 250.50
+          },
+          "detalhes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tipo": {
+                  "type": "string",
+                  "example": "perna dianteira esquerda"
+                },
+                "preco": {
+                  "type": "number",
+                  "example": 50.0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

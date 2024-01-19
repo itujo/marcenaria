@@ -1,4 +1,4 @@
-import { Material, Movel, TipoMaterial } from "../../domain/entities";
+import { Material, Movel } from "../../domain/entities";
 import { GeometriaFactory } from "../../domain/factories";
 import { DadosMovel } from "../../domain/types";
 import { MaterialRepository } from "../../infra/repositories";

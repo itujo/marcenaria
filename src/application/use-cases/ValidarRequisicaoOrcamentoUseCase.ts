@@ -1,4 +1,3 @@
-import { ZodError } from "zod";
 import { RequisicaoOrcamentoSchema } from "../../domain/schemas";
 import { DadosMovel } from "../../domain/types";
 
